@@ -6,7 +6,7 @@ app = Flask(__name__)
 def predict():
 	uri = request.args.get("URI")
 	# move contents of predict.py here to quarry the model
-	is_phishing = True
+	is_phishing = False
 	return jsonify({"is_phishing": is_phishing})
 
 app.run(host="0.0.0.0", port=8081 , debug=True)
