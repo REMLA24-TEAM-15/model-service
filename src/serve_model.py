@@ -5,8 +5,7 @@ from flask import Flask, jsonify, request
 from flasgger import Swagger
 import numpy as np
 
-# from preprocessing import tokenize_single # Should eventually be from lib-ml
-from lib_ml import preprocess_input
+from lib_ml import preprocess_input #to do
 
 app = Flask(__name__)
 swagger = Swagger(app)
@@ -38,21 +37,12 @@ def predict():
 
     link = request.get_json().get('link')
     processed_link = preprocess_input(link)
-    # print("Processed link: ", processed_link)
-    model = joblib.load('output/model.joblib')  # may have to change path in final version
-    # prediction = model.predict(processed_link)[0]
+    model = joblib.load('output/model.joblib')  #change path
     prediction = model.predict(processed_link)
-    # print("Length of prediction: ", len(prediction))
     prediction = (np.array(prediction) > 0.5).astype(int)
-    # print("Length of link: ", len(link))
-
-    # Test code, remove
-    # with open('output/test.txt', 'r') as file:
-    #  file_content = file.read()
-    # print(file_content)
 
     res = {
-        "Prediction": "TODO",
+        "Prediction": "todo",
         "Link": link
     }
     return jsonify(res)
