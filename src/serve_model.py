@@ -5,7 +5,7 @@ from flask import Flask, jsonify, request
 from flasgger import Swagger
 import numpy as np
 
-from lib_ml import preprocess_input #to do
+from lib_ml import preprocess_input  # to do
 
 app = Flask(__name__)
 swagger = Swagger(app)
@@ -36,14 +36,15 @@ def predict():
     """
 
     link = request.get_json().get('link')
-    processed_link = preprocess_input(link)
-    model = joblib.load('output/model.joblib')  #change path
-    prediction = model.predict(processed_link)
-    prediction = (np.array(prediction) > 0.5).astype(int)
+    _, processed_link = preprocess_input(link)
+    model = joblib.load('output/model.joblib')  # may have to change path in final version
+    prediction = model.predict(processed_link)[0]
+    prediction = (np.array(prediction) > 0.5).astype(int).tolist()  # 0 if phishing, 1 if legitimate
+    print(prediction)
 
     res = {
-        "Prediction": "todo",
-        "Link": link
+        "Link": link,
+        "Prediction": prediction
     }
     return jsonify(res)
 
