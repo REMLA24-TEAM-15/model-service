@@ -31,7 +31,7 @@ jobs:
 
       - name: Build and Push Docker Image
         run: |
-          IMG=ghcr.io/${{ github.repository }}
+          IMG=ghcr.io/$REPO_LC
           docker build \
           --tag $IMG:${{ env.version }} \
           --tag $IMG:${{ env.version_major }}.${{ env.version_minor }}.latest \
