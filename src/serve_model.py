@@ -12,8 +12,7 @@ swagger = Swagger(app)
 
 @app.route('/predict', methods=['POST'])
 def predict():
-
-    dic = joblib.load('../model/release.joblib')
+    dic = joblib.load('model/release.joblib')
     tokenizer = libml.TokenizeQuery(dic["char_index"])
     query = request.get_json().get('link')
     processed_query = tokenizer.tokenize(query, 200)
@@ -27,6 +26,7 @@ def predict():
         "Prediction": prediction
     }
     return jsonify(res)
+
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=8081, debug=True)
