@@ -1,11 +1,10 @@
 # Flask API to detect phising
 
 import joblib
-from flask import Flask, jsonify, request
-from flasgger import Swagger
 import numpy as np
-
-from lib_ml import preprocess_input  # to do
+from flasgger import Swagger
+from flask import Flask, jsonify, request
+import libml
 
 app = Flask(__name__)
 swagger = Swagger(app)
@@ -34,21 +33,31 @@ def predict():
       200:
         description: "The result of the classification: 'phishing' or 'legitimate'."
     """
-
-    link = request.get_json().get('link')
-    _, processed_link = preprocess_input(link)
-    model = joblib.load('output/model.joblib')  # may have to change path in final version
-    prediction = model.predict(processed_link)[0]
+    char_index = {
+        'a': 1,
+        'b': 2,
+        'c': 3,
+        'd': 4,
+        'e': 5,
+        'f': 6,
+        'g': 7,
+        'h': 8,
+        'i': 9,
+    }
+    tokenizer = libml.TokenizeQuery(char_index)
+    query = request.get_json().get('link')
+    processed_query = tokenizer.tokenize(query, 200)
+    model = joblib.load('../model/release.joblib')
+    prediction = model.predict(processed_query)[0]
     prediction = (np.array(prediction) > 0.5).astype(int).tolist()  # 0 if phishing, 1 if legitimate
     print(prediction)
 
     res = {
-        "Link": link,
+        "Link": query,
         "Prediction": prediction
     }
     return jsonify(res)
 
 
 if __name__ == '__main__':
-    clf = joblib.load('output/model.joblib')
     app.run(host="0.0.0.0", port=8081, debug=True)
