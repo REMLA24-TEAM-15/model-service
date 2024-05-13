@@ -1,11 +1,12 @@
 import requests
 import os
+import configparser
 
 
-def download_latest_joblib(org_name, repo_name, file_name):
+def download_latest_joblib(org_name, repo_name, file_name, download_dir):
     # Create directory if it doesn't exist
-    if not os.path.exists("../model"):
-        os.makedirs("../model")
+    if not os.path.exists(download_dir):
+        os.makedirs(download_dir)
 
     # Construct the URL for the latest release assets
     url = f"https://api.github.com/repos/{org_name}/{repo_name}/releases/latest"
@@ -36,7 +37,7 @@ def download_latest_joblib(org_name, repo_name, file_name):
                 response = requests.get(joblib_url)
                 if response.status_code == 200:
                     # Save the .joblib file
-                    with open(os.path.join("../model", file_name), 'wb') as f:
+                    with open(os.path.join(download_dir, file_name), 'wb') as f:
                         f.write(response.content)
                     print(f"File {file_name} downloaded successfully.")
                 else:
@@ -49,9 +50,22 @@ def download_latest_joblib(org_name, repo_name, file_name):
         print("Failed to fetch latest release.")
 
 
-# Example usage
-org_name = "REMLA24-TEAM-15"
-repo_name = "model-training"
-file_name = "release.joblib"
+# Read parameters from config file
+def read_config(config_file):
+    config = configparser.ConfigParser()
+    config.read(config_file)
+    org_name = config.get('GitHub', 'org_name')
+    repo_name = config.get('GitHub', 'repo_name')
+    file_name = config.get('GitHub', 'file_name')
+    download_dir = config.get('Directories', 'download_dir')
+    return org_name, repo_name, file_name, download_dir
 
-download_latest_joblib(org_name, repo_name, file_name)
+
+def main():
+    config_file = 'config.ini'
+    org_name, repo_name, file_name, download_dir = read_config(config_file)
+    download_latest_joblib(org_name, repo_name, file_name, download_dir)
+
+
+if __name__ == "__main__":
+    main()
