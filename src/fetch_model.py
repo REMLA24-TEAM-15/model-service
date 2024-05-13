@@ -49,9 +49,10 @@ def download_latest_joblib(org_name, repo_name, file_name):
         print("Failed to fetch latest release.")
 
 
-# Example usage
-org_name = "REMLA24-TEAM-15"
-repo_name = "model-training"
-file_name = "release.joblib"
-
-download_latest_joblib(org_name, repo_name, file_name)
+if __name__ == '__main__':
+    # Example usage
+    org_name = "REMLA24-TEAM-15"
+    repo_name = "model-training"
+    file_name = "release.joblib"
+    
+    download_latest_joblib(org_name, repo_name, file_name)
