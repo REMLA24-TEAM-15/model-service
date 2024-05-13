@@ -13,10 +13,11 @@ swagger = Swagger(app)
 @app.route('/predict', methods=['POST'])
 def predict():
 
-    model = joblib.load('../model/release.joblib')
-    tokenizer = libml.TokenizeQuery(model["char_index"])
+    dic = joblib.load('../model/release.joblib')
+    tokenizer = libml.TokenizeQuery(dic["char_index"])
     query = request.get_json().get('link')
     processed_query = tokenizer.tokenize(query, 200)
+    model = dic['model']
     prediction = model.predict(processed_query)[0]
     prediction = (np.array(prediction) > 0.5).astype(int).tolist()  # 0 if phishing, 1 if legitimate
     print(prediction)
