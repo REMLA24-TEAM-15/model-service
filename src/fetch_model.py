@@ -50,21 +50,8 @@ def download_latest_joblib(org_name, repo_name, file_name, download_dir):
         print("Failed to fetch latest release.")
 
 
-# Read parameters from config file
-def read_config(config_file):
-    config = configparser.ConfigParser()
-    config.read(config_file)
-    org_name = config.get('GitHub', 'org_name')
-    repo_name = config.get('GitHub', 'repo_name')
-    file_name = config.get('GitHub', 'file_name')
-    download_dir = config.get('Directories', 'download_dir')
-    return org_name, repo_name, file_name, download_dir
-
-
 def main():
-    config_file = 'config.ini'
-    org_name, repo_name, file_name, download_dir = read_config(config_file)
-    download_latest_joblib(org_name, repo_name, file_name, download_dir)
+    download_latest_joblib("REMLA24-TEAM-15", "model-training", "release.joblib", "../model")
 
 
 if __name__ == "__main__":
