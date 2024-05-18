@@ -1,0 +1,6 @@
+# docker-compose.yml
+services:
+  NAME:
+    image: ghcr.io/remla24-team-15/model-service
+    ports:
+      - 8081:8081
