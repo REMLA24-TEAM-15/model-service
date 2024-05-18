@@ -1,24 +1,19 @@
 # Flask API to detect phising
 
-import joblib
 import numpy as np
 from flasgger import Swagger
 from flask import Flask, jsonify, request
 import libml
+from model_class import URL_phishing
 
 app = Flask(__name__)
 swagger = Swagger(app)
+url_model = URL_phishing()
 
 
 @app.route('/predict', methods=['POST'])
 def predict():
-    dic = joblib.load('../model/release.joblib')
-    tokenizer = libml.TokenizeQuery(dic["char_index"])
-    query = request.get_json().get('link')
-    processed_query = tokenizer.tokenize(query, 200)
-    model = dic['model']
-    prediction = model.predict(processed_query)[0]
-    prediction = (np.array(prediction) > 0.5).astype(int).tolist()  # 0 if phishing, 1 if legitimate
+    prediction, query = url_model.predict(request)
     print(prediction)
 
     res = {
