@@ -10,11 +10,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
       - name: Install pdoc
         run: pip install pdoc3
 
       - name: Generate documentation
-        run: pdoc --html lib_version_URLPhishing --output-dir docs
+        run: pdoc --html src --output-dir docs
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
