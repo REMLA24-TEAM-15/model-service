@@ -9,6 +9,19 @@ jobs:
     permissions: write-all
     steps:
       - uses: actions/checkout@v4
+
+      - name: Install pdoc
+        run: pip install pdoc3
+
+      - name: Generate documentation
+        run: pdoc --html lib_version_URLPhishing --output-dir docs
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ github.token }}
+          publish_dir: ./docs/model-service
+
       - name: Parse version info from tag
         run: |
           # GITHUB_REF is like refs/tags/v2.3.5, so strip the first 11 chars
