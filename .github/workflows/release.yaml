@@ -19,6 +19,9 @@ jobs:
       - name: Install dependencies
         run: poetry install
 
+      - name: install libml
+        run: pip install -i https://test.pypi.org/simple/ libml-URLPhishing==0.2.1
+
       - name: Install pdoc
         run: poetry add --dev pdoc3
 
