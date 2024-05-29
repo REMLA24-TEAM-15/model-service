@@ -4,8 +4,8 @@ import numpy as np
 from flasgger import Swagger
 from flask import Flask, jsonify, request
 import libml
-from fetch_model import download_latest_joblib
-from model_class import URL_phishing
+from .fetch_model import download_latest_joblib
+from .model_class import URL_phishing
 
 download_latest_joblib("REMLA24-TEAM-15", "model-training", "release.joblib", "../model")
 
