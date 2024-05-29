@@ -73,10 +73,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install Requirements
-        run: |
-          poetry install
-          pip install -i https://test.pypi.org/simple/ libml-URLPhishing==0.2.1
+      - name: Install poetry
+        run: curl -sSL https://install.python-poetry.org | python -
+
+      - name: Configure Poetry
+        run: poetry config virtualenvs.create true
+
+      - name: Install dependencies
+        run: poetry install
+
+      - name: Install libml
+        run:  pip install -i https://test.pypi.org/simple/ libml-URLPhishing==0.2.1
 
       - name: Install pdoc
         run: |
