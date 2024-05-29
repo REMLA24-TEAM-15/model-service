@@ -1,6 +1,0 @@
-﻿flasgger==0.9.7.1
-Flask==2.2.5
-joblib~=1.2.0
-numpy==1.26.4
-requests~=2.31.0
-tensorflow==2.16.1
