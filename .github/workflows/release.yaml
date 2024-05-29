@@ -10,30 +10,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install poetry
-        run: curl -sSL https://install.python-poetry.org | python -
-
-      - name: Configure Poetry
-        run: poetry config virtualenvs.create true
-
-      - name: Install dependencies
-        run: poetry install
-
-      - name: install libml
-        run: pip install -i https://test.pypi.org/simple/ libml-URLPhishing==0.2.1
-
-      - name: Install pdoc
-        run: poetry add --dev pdoc3
-
-      - name: Generate documentation
-        run: pdoc --html src --output-dir docs
-
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ github.token }}
-          publish_dir: ./docs/model-service
-
       - name: Parse version info from tag
         run: |
           # GITHUB_REF is like refs/tags/v2.3.5, so strip the first 11 chars
@@ -83,8 +59,7 @@ jobs:
         run: poetry run pip install -i https://test.pypi.org/simple/ libml-URLPhishing==0.2.1 --no-deps
 
       - name: Install pdoc
-        run: |
-          pip install pdoc3
+        run: poetry run pip install pdoc3
 
       - name: Generate Docs
         run: |
