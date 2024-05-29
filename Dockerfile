@@ -3,8 +3,11 @@ WORKDIR /src
 COPY . /src
 RUN apt-get update
 RUN apt-get install -y pkg-config libhdf5-dev
-RUN pip install -r requirements.txt
-RUN pip install -i https://test.pypi.org/simple/ libml-URLPhishing
+RUN pip install poetry
+RUN poetry install --no-root
+#RUN pip install -r requirements.txt
+RUN poetry run pip install -i https://test.pypi.org/simple/ libml-URLPhishing==0.2.1
 EXPOSE 8081
 RUN chmod a+x run.sh
-CMD ["python3", "src/serve_model.py"]
+#CMD ["python3", "src/serve_model.py"]
+CMD ["poetry", "run", "python3", "src/main.py"]

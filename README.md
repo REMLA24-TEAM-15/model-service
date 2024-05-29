@@ -1,4 +1,4 @@
-Docker container that serves a machine trained model. To be used with the webapp.
+Docker container that serves a machine trained model. To be used with the
 
 ## Release in a docker image
 
