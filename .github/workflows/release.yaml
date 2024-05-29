@@ -11,14 +11,14 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Install poetry
-        run: |
-          curl -sSL https://install.python-poetry.org | python -
+        run: curl -sSL https://install.python-poetry.org | python -
+
       - name: Configure Poetry
-        run: |
-          poetry config virtualenvs.create false
+        run: poetry config virtualenvs.create false
+
       - name: Install dependencies
-        run: |
-          poetry install
+        run: poetry install
+
 
       - name: Install pdoc
         run: pip install pdoc3
