@@ -80,7 +80,7 @@ jobs:
         run: poetry install --no-root
 
       - name: Install libml
-        run:  pip install -i https://test.pypi.org/simple/ libml-URLPhishing==0.2.1
+        run: pip install -i https://test.pypi.org/simple/ libml-URLPhishing==0.2.1 --no-deps
 
       - name: Install pdoc
         run: |
