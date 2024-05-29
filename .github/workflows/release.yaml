@@ -14,11 +14,10 @@ jobs:
         run: curl -sSL https://install.python-poetry.org | python -
 
       - name: Configure Poetry
-        run: poetry config virtualenvs.create false
+        run: poetry config virtualenvs.create true
 
       - name: Install dependencies
         run: poetry install
-
 
       - name: Install pdoc
         run: pip install pdoc3
