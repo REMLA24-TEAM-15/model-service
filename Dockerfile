@@ -1,10 +1,12 @@
+#Dockerfile
 FROM python:3.10.14
-WORKDIR /src
-COPY . /src
+WORKDIR /app
+COPY pyproject.toml poetry.lock ./
 RUN apt-get update
 RUN apt-get install -y pkg-config libhdf5-dev
 RUN pip install poetry
 RUN poetry install --no-root
-RUN poetry run pip install -i https://test.pypi.org/simple/ libml-URLPhishing==0.2.1
+RUN poetry run pip install -i https://test.pypi.org/simple/ libml-URLPhishing
+COPY . /app
 EXPOSE 8081
 CMD ["poetry", "run", "python3", "src/serve_model.py"]
