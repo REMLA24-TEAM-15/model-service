@@ -13,13 +13,14 @@ class URL_phishing:
     def __init__(self):
         self.model = None
         self.tokenizer = None
-
+        self.version = None
         self.load_model()
 
     def load_model(self):
         dic = joblib.load('../model/release.joblib')
         self.tokenizer = libml.TokenizeQuery(dic["char_index"])
         self.model = dic['model']
+        self.version = dic['version']
 
     def predict(self, req):
         query = req.get_json().get('link')

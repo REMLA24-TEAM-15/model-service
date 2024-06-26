@@ -4,6 +4,7 @@ from flasgger import Swagger
 from flask import Flask, jsonify, request
 from fetch_model import download_latest_joblib
 from model_class import URL_phishing
+from datetime import datetime
 
 download_latest_joblib("REMLA24-TEAM-15", "model-training", "release.joblib", "../model")
 
@@ -17,9 +18,15 @@ def predict():
     prediction, query = url_model.predict(request)
     print(prediction)
 
+    pred_time = datetime.now()
+    pred_time = pred_time.strftime("%Y-%m-%d %H:%M:%S")
+    model_version = url_model.version
+
     res = {
         "Link": query,
-        "Prediction": prediction
+        "Prediction": prediction,
+        "PredictionTime": pred_time,
+        "ModelVersion": model_version
     }
     return jsonify(res)
 
