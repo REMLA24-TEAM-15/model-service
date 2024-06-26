@@ -1,9 +1,7 @@
 # Flask API to detect phising
 
-import numpy as np
 from flasgger import Swagger
 from flask import Flask, jsonify, request
-import libml
 from fetch_model import download_latest_joblib
 from model_class import URL_phishing
 
