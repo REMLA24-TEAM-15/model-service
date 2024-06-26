@@ -5,7 +5,11 @@ import numpy as np
 import libml
 
 
-class URL_phishing(object):
+class URL_phishing:
+    """
+    URL_phishing class is responsible for loading the trained model and making predictions
+    on whether a given URL is phishing or legitimate.
+    """
     def __init__(self):
         self.model = None
         self.tokenizer = None
@@ -21,5 +25,6 @@ class URL_phishing(object):
         query = req.get_json().get('link')
         processed_query = self.tokenizer.tokenize(query, 200)
         prediction = self.model.predict(processed_query)[0]
-        prediction = (np.array(prediction) > 0.5).astype(int).tolist()  # 0 if phishing, 1 if legitimate
+        prediction = (np.array(prediction) > 0.5)\
+            .astype(int).tolist()  # 0 if phishing, 1 if legitimate
         return prediction, query

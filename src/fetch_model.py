@@ -1,5 +1,5 @@
-import requests
 import os
+import requests
 
 
 def download_latest_joblib(org_name, repo_name, file_name, download_dir):
