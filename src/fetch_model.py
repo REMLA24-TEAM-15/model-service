@@ -2,13 +2,13 @@ import os
 import requests
 
 
-def download_latest_joblib(org_name, repo_name, file_name, download_dir):
+def download_latest_joblib(file_name, download_dir):
     # Create directory if it doesn't exist
     if not os.path.exists(download_dir):
         os.makedirs(download_dir)
 
     # Construct the URL for the latest release assets
-    url = f"https://api.github.com/repos/{org_name}/{repo_name}/releases/latest"
+    url = os.environ.get("RELEASE_URL", "https://api.github.com/repos/REMLA24-TEAM-15/model-training/releases/latest")
 
     # Send a GET request to the GitHub API
     response = requests.get(url)
@@ -50,7 +50,7 @@ def download_latest_joblib(org_name, repo_name, file_name, download_dir):
 
 
 def main():
-    download_latest_joblib("REMLA24-TEAM-15", "model-training", "release.joblib", "../model")
+    download_latest_joblib("release.joblib", "../model")
 
 
 if __name__ == "__main__":
