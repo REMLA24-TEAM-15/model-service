@@ -3,6 +3,9 @@ The model-service represents a wrapper service for the released ML model. It off
 to exposes the model to other components and make it scalable. 
 
 ## Setup Instructions 
+If you want to run it locally, cd to the  `model-service` repository and execute the `run.sh` file. 
+
+### To Run with Docker
 Make sure you have docker running locally 
 
 1. Clone the repository:
