@@ -41,3 +41,7 @@ sample response :
     ]
 }
 ```
+
+
+## Tokens Required:
+For this repository you require a GitHub token (e.g GH_Token) with package and repo read/write permissions. 
