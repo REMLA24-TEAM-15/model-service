@@ -3,8 +3,8 @@
 from datetime import datetime
 from flasgger import Swagger
 from flask import Flask, jsonify, request
-from fetch_model import download_latest_joblib
-from model_class import URL_phishing
+from src.fetch_model import download_latest_joblib
+from src.model_class import URL_phishing
 
 download_latest_joblib("REMLA24-TEAM-15", "model-training", "release.joblib", "../model")
 
