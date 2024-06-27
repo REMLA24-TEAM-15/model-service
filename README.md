@@ -1,6 +1,7 @@
 # Model-Service
 The model-service represents a wrapper service for the released ML model. It offers a REST API
-to exposes the model to other components and make it scalable. 
+to exposes the model to other components and make it scalable. \
+[GitHub Pages](https://remla24-team-15.github.io/model-service/)
 
 ## Setup Instructions 
 If you want to run it locally, cd to the  `model-service` repository and execute the `run.sh` file. 
